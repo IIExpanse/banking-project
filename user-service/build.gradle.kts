@@ -1,5 +1,6 @@
 plugins {
     id("java")
+
 }
 
 group = "ru.expanse"
@@ -9,9 +10,16 @@ repositories {
     mavenCentral()
 }
 
+val properties: Map<String, *> = project.properties
+
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation(platform("io.quarkus.platform:quarkus-bom:" + properties["quarkusPlatformVersion"]))
+    implementation("io.quarkus:quarkus-arc")
+    implementation("io.quarkus:quarkus-liquibase")
+    implementation("io.quarkus:quarkus-reactive-pg-client")
+
+    testImplementation("io.quarkus:quarkus-junit5")
+    testImplementation("io.quarkus:quarkus-junit5-mockito")
 }
 
 tasks.test {
