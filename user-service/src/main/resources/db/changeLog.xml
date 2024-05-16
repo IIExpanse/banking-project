@@ -23,7 +23,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="email" type="VARCHAR">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="phone_number" type="VARCHAR">
                 <constraints nullable="false"/>
