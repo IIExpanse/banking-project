@@ -1,6 +1,6 @@
 plugins {
     id("java")
-
+    id("io.quarkus") version "3.11.0.CR1"
 }
 
 group = "ru.expanse"
@@ -30,4 +30,17 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.quarkusDev {
+    environmentVariables.set(run {
+        val map: MutableMap<String, String> = HashMap()
+        file("env.").readLines().forEach { line ->
+            run {
+                val arr = line.split("=")
+                map[arr[0]] = arr[1]
+            }
+        }
+        return@run map
+    })
 }
