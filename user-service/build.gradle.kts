@@ -22,9 +22,12 @@ dependencies {
     implementation("org.mapstruct:mapstruct:" + properties["mapstructVersion"])
 
     compileOnly("org.projectlombok:lombok:" + properties["lombokVersion"])
+    annotationProcessor("org.projectlombok:lombok:" + properties["lombokVersion"])
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.quarkus:quarkus-junit5-mockito")
+    testCompileOnly("org.projectlombok:lombok:" + properties["lombokVersion"])
+    testAnnotationProcessor("org.projectlombok:lombok:" + properties["lombokVersion"])
 }
 
 
