@@ -17,7 +17,7 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="user_pk"/>
             </column>
             <column name="account_id" type="UUID">
-                <constraints nullable="false" unique="true"/>
+                <constraints unique="true"/>
             </column>
             <column name="name" type="VARCHAR">
                 <constraints nullable="false"/>
