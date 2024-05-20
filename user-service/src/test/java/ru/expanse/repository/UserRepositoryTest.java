@@ -8,8 +8,9 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.expanse.entity.User;
-import ru.expanse.utils.ObjectFactory;
+import ru.expanse.repository.utils.ObjectFactory;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +34,18 @@ class UserRepositoryTest {
         User user = saveUser(ObjectFactory.getDefaultUser());
         User returnedUser2 = findUser(user.getId());
         assertEquals(user.getId(), returnedUser2.getId());
+    }
+
+    @Test
+    void filterUsersByNameAndEmail() throws Throwable {
+        User user = saveUser(ObjectFactory.getDefaultUser());
+        List<User> list = filterUsers(user.getName(), user.getEmail());
+        assertEquals(1, list.size());
+
+        list = filterUsers(
+                user.getName().substring(0, 4),
+                user.getEmail().substring(0, 4));
+        assertEquals(1, list.size());
     }
 
     @Test
@@ -79,6 +92,14 @@ class UserRepositoryTest {
         return VertxContextSupport.subscribeAndAwait(
                 () -> Panache.withSession(
                         () -> userRepository.findById(id)
+                )
+        );
+    }
+
+    private List<User> filterUsers(String name, String email) throws Throwable {
+        return VertxContextSupport.subscribeAndAwait(
+                () -> Panache.withSession(
+                        () -> userRepository.filterUsersByNameAndEmail(name, email)
                 )
         );
     }
