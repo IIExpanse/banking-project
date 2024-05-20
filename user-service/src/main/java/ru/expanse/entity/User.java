@@ -1,7 +1,9 @@
 package ru.expanse.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.*;
 
 import java.util.UUID;
 
@@ -12,6 +14,14 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
+@FilterDefs({
+        @FilterDef(name = "nameFilter", parameters = @ParamDef(name = "searchName", type = String.class)),
+        @FilterDef(name = "emailFilter", parameters = @ParamDef(name = "searchEmail", type = String.class))
+})
+@Filters({
+        @Filter(name = "nameFilter", condition = "LOWER(name) LIKE CONCAT(LOWER(:searchName), '%')"),
+        @Filter(name = "emailFilter", condition = "LOWER(email) LIKE CONCAT(LOWER(:searchEmail), '%')")
+})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
