@@ -1,4 +1,4 @@
-package ru.expanse.utils;
+package ru.expanse.repository.utils;
 
 import ru.expanse.entity.User;
 
