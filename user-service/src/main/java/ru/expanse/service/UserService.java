@@ -12,5 +12,5 @@ public interface UserService {
 
     Uni<UserDto> updateUser(UserDto userDto);
 
-    Uni<Boolean> deleteUser(long id);
+    Uni<Boolean> deleteUser(UUID id);
 }
