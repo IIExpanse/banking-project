@@ -20,9 +20,12 @@ dependencies {
     implementation("io.quarkus:quarkus-reactive-pg-client")
     implementation("io.quarkus:quarkus-hibernate-reactive-panache")
     implementation("org.mapstruct:mapstruct:" + properties["mapstructVersion"])
+    implementation("org.projectlombok:lombok-mapstruct-binding:" + properties["lombokMapstructBindingVersion"])
+
 
     compileOnly("org.projectlombok:lombok:" + properties["lombokVersion"])
     annotationProcessor("org.projectlombok:lombok:" + properties["lombokVersion"])
+    annotationProcessor("org.mapstruct:mapstruct-processor:" + properties["mapstructVersion"])
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.quarkus:quarkus-junit5-mockito")
