@@ -8,7 +8,7 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.expanse.entity.User;
-import ru.expanse.repository.utils.ObjectFactory;
+import ru.expanse.utils.ObjectFactory;
 
 import java.util.List;
 import java.util.UUID;
