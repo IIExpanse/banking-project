@@ -1,7 +1,6 @@
 package ru.expanse.service.impl;
 
 import io.smallrye.mutiny.Uni;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
