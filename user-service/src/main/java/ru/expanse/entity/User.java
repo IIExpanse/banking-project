@@ -5,6 +5,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.*;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -34,4 +35,6 @@ public class User {
     private String email;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
+    @Column(name = "birth_date", nullable = false)
+    private Timestamp birthDate;
 }
