@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import ru.expanse.entity.User;
 import ru.expanse.mapper.UserMapper;
 import ru.expanse.repository.UserRepository;
-import ru.expanse.utils.ObjectFactory;
+import ru.expanse.util.ObjectFactory;
 
 import java.util.UUID;
 
