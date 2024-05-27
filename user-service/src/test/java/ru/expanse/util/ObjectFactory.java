@@ -3,7 +3,6 @@ package ru.expanse.util;
 import ru.expanse.entity.User;
 
 import java.sql.Timestamp;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
