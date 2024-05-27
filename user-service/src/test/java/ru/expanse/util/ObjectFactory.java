@@ -13,7 +13,7 @@ public class ObjectFactory {
                 .name("John Doe")
                 .email("john.doe@example.com")
                 .phoneNumber("+79001234567")
-                .birthDate(Timestamp.valueOf(LocalDateTime.now().minus(Duration.of(20, ChronoUnit.YEARS))))
+                .birthDate(Timestamp.valueOf(LocalDateTime.now().minus(ChronoUnit.YEARS.getDuration().multipliedBy(20))))
                 .build();
     }
 }
