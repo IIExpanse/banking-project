@@ -54,11 +54,23 @@ class UserServiceImplTest {
     }
 
     @Test
-    void updateUser() {
+    void updateUser() throws Exception {
+        User returnedUser = ObjectFactory.getDefaultUser();
+        returnedUser.setId(UUID.randomUUID());
 
+        Mockito.when(userRepository.persist(ArgumentMatchers.any(User.class)))
+                .thenReturn(Uni.createFrom().item(returnedUser));
+
+        UUID id = userService.updateUser(userMapper.mapToDto(returnedUser))
+                .subscribe().asCompletionStage().get().id();
+
+        assertEquals(returnedUser.getId(), id);
     }
 
     @Test
-    void deleteUser() {
+    void deleteUser() throws Exception {
+        Mockito.when(userRepository.deleteById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(Uni.createFrom().item(true));
+        assertTrue(userService.deleteUser(UUID.randomUUID()).subscribe().asCompletionStage().get());
     }
 }
