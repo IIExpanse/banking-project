@@ -28,7 +28,7 @@
             <column name="phone_number" type="VARCHAR">
                 <constraints nullable="false"/>
             </column>
-            <column name="birth_date" type="timestamp">
+            <column name="birth_date" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
         </createTable>
