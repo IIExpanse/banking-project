@@ -17,11 +17,17 @@ import java.util.UUID;
 @Setter
 @FilterDefs({
         @FilterDef(name = "nameFilter", parameters = @ParamDef(name = "searchName", type = String.class)),
-        @FilterDef(name = "emailFilter", parameters = @ParamDef(name = "searchEmail", type = String.class))
+        @FilterDef(name = "emailFilter", parameters = @ParamDef(name = "searchEmail", type = String.class)),
+        @FilterDef(name = "birthDateFilter",
+                parameters = {
+                        @ParamDef(name = "startBirthDate", type = Timestamp.class),
+                        @ParamDef(name = "endBirthDate", type = Timestamp.class)
+                })
 })
 @Filters({
         @Filter(name = "nameFilter", condition = "LOWER(name) LIKE CONCAT(LOWER(:searchName), '%')"),
-        @Filter(name = "emailFilter", condition = "LOWER(email) LIKE CONCAT(LOWER(:searchEmail), '%')")
+        @Filter(name = "emailFilter", condition = "LOWER(email) LIKE CONCAT(LOWER(:searchEmail), '%')"),
+        @Filter(name = "birthDateFilter", condition = ":startBirthDate <= birth_date AND birth_date <= :endBirthDate")
 })
 public class User {
     @Id
