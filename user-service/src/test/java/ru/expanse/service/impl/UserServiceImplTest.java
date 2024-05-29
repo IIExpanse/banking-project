@@ -6,11 +6,15 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import ru.expanse.dto.UserDto;
 import ru.expanse.entity.User;
 import ru.expanse.mapper.UserMapper;
 import ru.expanse.repository.UserRepository;
 import ru.expanse.util.ObjectFactory;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,6 +55,25 @@ class UserServiceImplTest {
         UUID id = userService.getUserById(returnedUser.getId()).subscribe().asCompletionStage().get().id();
 
         assertEquals(returnedUser.getId(), id);
+    }
+
+    @Test
+    void getFilteredUsers() throws Exception {
+        User returnedUser = ObjectFactory.getDefaultUser();
+        Mockito.when(userRepository.getFilteredUsers(
+                        ArgumentMatchers.anyString(),
+                        ArgumentMatchers.anyString(),
+                        ArgumentMatchers.any(Timestamp.class),
+                        ArgumentMatchers.any(Timestamp.class)))
+                .thenReturn(Uni.createFrom().item(List.of(returnedUser)));
+
+        List<UserDto> list = userService.getFilteredUsers(
+                "abc",
+                "abc",
+                Timestamp.from(Instant.now()),
+                Timestamp.from(Instant.now())).subscribeAsCompletionStage().get();
+
+        assertEquals(1, list.size());
     }
 
     @Test
