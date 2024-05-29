@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import ru.expanse.entity.User;
 import ru.expanse.util.ObjectFactory;
 
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,15 +40,24 @@ class UserRepositoryTest {
     }
 
     @Test
-    void filterUsersByNameAndEmail() throws Throwable {
+    void getFilteredUsers() throws Throwable {
         User user = saveUser(ObjectFactory.getDefaultUser());
-        List<User> list = filterUsers(user.getName(), user.getEmail());
+        List<User> list = filterUsers(user.getName(), user.getEmail(), null, null);
         assertEquals(1, list.size());
+
+        Timestamp startDate = Timestamp.from(user.getBirthDate().toInstant().minus(Duration.ofDays(20)));
+        Timestamp endDate = Timestamp.from(user.getBirthDate().toInstant().plus(Duration.ofDays(20)));
 
         list = filterUsers(
                 user.getName().substring(0, 4),
-                user.getEmail().substring(0, 4));
+                user.getEmail().substring(0, 4),
+                startDate,
+                endDate
+                );
         assertEquals(1, list.size());
+
+        list = filterUsers(null, null, Timestamp.from(Instant.MAX), null);
+        assertEquals(0, list.size());
     }
 
     @Test
@@ -96,10 +108,14 @@ class UserRepositoryTest {
         );
     }
 
-    private List<User> filterUsers(String name, String email) throws Throwable {
+    private List<User> filterUsers(
+            String name,
+            String email,
+            Timestamp startBirthDate,
+            Timestamp endBirthDate) throws Throwable {
         return VertxContextSupport.subscribeAndAwait(
                 () -> Panache.withSession(
-                        () -> userRepository.filterUsersByNameAndEmail(name, email)
+                        () -> userRepository.getFilteredUsers(name, email, startBirthDate, endBirthDate)
                 )
         );
     }
