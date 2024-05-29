@@ -10,7 +10,10 @@ import ru.expanse.mapper.UserMapper;
 import ru.expanse.repository.UserRepository;
 import ru.expanse.service.UserService;
 
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 @RequiredArgsConstructor
@@ -31,6 +34,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id)
                 .onItem().ifNull().failWith(new RuntimeException())
                 .map(userMapper::mapToDto);
+    }
+
+    @Override
+    public Uni<List<UserDto>> getFilteredUsers(String name, String email, Timestamp startBirthDate, Timestamp endBirthDate) {
+        return userRepository.getFilteredUsers(name, email, startBirthDate, endBirthDate)
+                .map(list -> list.stream().map(userMapper::mapToDto).collect(Collectors.toList()));
     }
 
     @Override
