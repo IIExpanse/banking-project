@@ -19,8 +19,10 @@ dependencies {
     implementation("io.quarkus:quarkus-jdbc-postgresql")
     implementation("io.quarkus:quarkus-reactive-pg-client")
     implementation("io.quarkus:quarkus-hibernate-reactive-panache")
+    implementation("io.quarkus:quarkus-grpc")
     implementation("org.mapstruct:mapstruct:" + properties["mapstructVersion"])
     implementation("org.projectlombok:lombok-mapstruct-binding:" + properties["lombokMapstructBindingVersion"])
+
 
 
     compileOnly("org.projectlombok:lombok:" + properties["lombokVersion"])
@@ -30,7 +32,6 @@ dependencies {
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.quarkus:quarkus-junit5-mockito")
     testCompileOnly("org.projectlombok:lombok:" + properties["lombokVersion"])
-    testAnnotationProcessor("org.projectlombok:lombok:" + properties["lombokVersion"])
 }
 
 
