@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-import ru.expanse.user.dto.UserDto;
 import ru.expanse.user.entity.User;
 import ru.expanse.user.mapper.UserMapper;
+import ru.expanse.user.proto.UserDto;
 import ru.expanse.user.repository.UserRepository;
 import ru.expanse.user.util.ObjectFactory;
 
@@ -40,7 +40,7 @@ class UserServiceImplTest {
         Mockito.when(userRepository.persist(ArgumentMatchers.any(User.class)))
                 .thenReturn(Uni.createFrom().item(returnedUser));
 
-        UUID id = userService.addUser(userMapper.mapToDto(passedUser)).subscribe().asCompletionStage().get().id();
+        UUID id = UUID.fromString(userService.addUser(userMapper.mapToDto(passedUser)).subscribe().asCompletionStage().get().getId());
         assertEquals(returnedUser.getId(), id);
     }
 
@@ -52,7 +52,7 @@ class UserServiceImplTest {
         Mockito.when(userRepository.findById(returnedUser.getId()))
                 .thenReturn(Uni.createFrom().item(returnedUser));
 
-        UUID id = userService.getUserById(returnedUser.getId()).subscribe().asCompletionStage().get().id();
+        UUID id = UUID.fromString(userService.getUserById(returnedUser.getId()).subscribe().asCompletionStage().get().getId());
 
         assertEquals(returnedUser.getId(), id);
     }
@@ -84,8 +84,8 @@ class UserServiceImplTest {
         Mockito.when(userRepository.persist(ArgumentMatchers.any(User.class)))
                 .thenReturn(Uni.createFrom().item(returnedUser));
 
-        UUID id = userService.updateUser(userMapper.mapToDto(returnedUser))
-                .subscribe().asCompletionStage().get().id();
+        UUID id = UUID.fromString(userService.updateUser(userMapper.mapToDto(returnedUser))
+                .subscribe().asCompletionStage().get().getId());
 
         assertEquals(returnedUser.getId(), id);
     }

@@ -5,8 +5,8 @@ import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.RequiredArgsConstructor;
-import ru.expanse.user.dto.UserDto;
 import ru.expanse.user.mapper.UserMapper;
+import ru.expanse.user.proto.UserDto;
 import ru.expanse.user.repository.UserRepository;
 import ru.expanse.user.service.UserService;
 
