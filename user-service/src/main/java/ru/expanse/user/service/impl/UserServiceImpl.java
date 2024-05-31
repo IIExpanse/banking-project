@@ -1,14 +1,14 @@
-package ru.expanse.service.impl;
+package ru.expanse.user.service.impl;
 
 import io.quarkus.hibernate.reactive.panache.common.WithSession;
 import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.RequiredArgsConstructor;
-import ru.expanse.dto.UserDto;
-import ru.expanse.mapper.UserMapper;
-import ru.expanse.repository.UserRepository;
-import ru.expanse.service.UserService;
+import ru.expanse.user.dto.UserDto;
+import ru.expanse.user.mapper.UserMapper;
+import ru.expanse.user.repository.UserRepository;
+import ru.expanse.user.service.UserService;
 
 import java.sql.Timestamp;
 import java.util.List;

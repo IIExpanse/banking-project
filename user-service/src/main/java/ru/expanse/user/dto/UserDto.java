@@ -1,4 +1,4 @@
-package ru.expanse.dto;
+package ru.expanse.user.dto;
 
 import java.sql.Timestamp;
 import java.util.UUID;

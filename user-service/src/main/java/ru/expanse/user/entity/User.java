@@ -1,4 +1,4 @@
-package ru.expanse.entity;
+package ru.expanse.user.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;

@@ -1,11 +1,11 @@
-package ru.expanse.repository;
+package ru.expanse.user.repository;
 
 import io.quarkus.hibernate.reactive.panache.PanacheQuery;
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
-import ru.expanse.entity.User;
+import ru.expanse.user.entity.User;
 
 import java.sql.Timestamp;
 import java.time.Instant;

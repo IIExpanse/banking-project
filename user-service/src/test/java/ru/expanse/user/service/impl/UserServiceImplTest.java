@@ -1,4 +1,4 @@
-package ru.expanse.service.impl;
+package ru.expanse.user.service.impl;
 
 import io.smallrye.mutiny.Uni;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-import ru.expanse.dto.UserDto;
-import ru.expanse.entity.User;
-import ru.expanse.mapper.UserMapper;
-import ru.expanse.repository.UserRepository;
-import ru.expanse.util.ObjectFactory;
+import ru.expanse.user.dto.UserDto;
+import ru.expanse.user.entity.User;
+import ru.expanse.user.mapper.UserMapper;
+import ru.expanse.user.repository.UserRepository;
+import ru.expanse.user.util.ObjectFactory;
 
 import java.sql.Timestamp;
 import java.time.Instant;

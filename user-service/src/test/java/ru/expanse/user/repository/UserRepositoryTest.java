@@ -1,4 +1,4 @@
-package ru.expanse.repository;
+package ru.expanse.user.repository;
 
 import io.quarkus.hibernate.reactive.panache.Panache;
 import io.quarkus.test.junit.QuarkusTest;
@@ -7,8 +7,8 @@ import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.expanse.entity.User;
-import ru.expanse.util.ObjectFactory;
+import ru.expanse.user.entity.User;
+import ru.expanse.user.util.ObjectFactory;
 
 import java.sql.Timestamp;
 import java.time.Duration;

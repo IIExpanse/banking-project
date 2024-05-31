@@ -1,6 +1,6 @@
-package ru.expanse.util;
+package ru.expanse.user.util;
 
-import ru.expanse.entity.User;
+import ru.expanse.user.entity.User;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

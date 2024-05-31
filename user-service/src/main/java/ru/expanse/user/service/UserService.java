@@ -1,7 +1,7 @@
-package ru.expanse.service;
+package ru.expanse.user.service;
 
 import io.smallrye.mutiny.Uni;
-import ru.expanse.dto.UserDto;
+import ru.expanse.user.dto.UserDto;
 
 import java.sql.Timestamp;
 import java.util.List;
