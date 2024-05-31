@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package controller;
+
+option java_multiple_files = true;
+option java_package = "ru.expanse.user.proto";
+
+service GrpcUserController {
+  rpc addUser (UserDto) returns (UserResponse);
+  rpc getUserById (UserRequest) returns (UserResponse);
+  rpc getFilteredUsers (UserFilterRequest) returns (UserResponse);
+  rpc updateUser (UserDto) returns (UserResponse);
+  rpc deleteUser (UserRequest) returns (UserResponse);
+}
+
+message UserDto {
+  string id = 1;
+  string accountId = 2;
+  string name = 3;
+  string email = 4;
+  string phoneNumber = 5;
+  int64 birthDate = 6;
+}
+
+message UserRequest {
+  string id = 1;
+}
+
+message UserFilterRequest {
+  string name = 1;
+  string email = 2;
+  int64 startBirthDate = 3;
+  int64 endBirthDate = 4;
+}
+
+message UserResponse {
+  repeated UserDto users = 1;
+  bool isFound = 2;
+}
