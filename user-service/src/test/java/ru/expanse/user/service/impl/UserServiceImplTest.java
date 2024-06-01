@@ -7,11 +7,13 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import ru.expanse.user.entity.User;
+import ru.expanse.user.mapper.TimeStampMapper;
 import ru.expanse.user.mapper.UserMapper;
 import ru.expanse.user.proto.UserDto;
 import ru.expanse.user.repository.UserRepository;
 import ru.expanse.user.util.ObjectFactory;
 
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
@@ -25,10 +27,11 @@ class UserServiceImplTest {
     UserMapper userMapper;
 
     @BeforeEach
-    void refresh() {
+    void refresh() throws Exception {
         userRepository = Mockito.mock(UserRepository.class);
         userMapper = Mappers.getMapper(UserMapper.class);
         userService = new UserServiceImpl(userRepository, userMapper);
+        setTimeStampMapperInstance(userMapper);
     }
 
     @Test
@@ -95,5 +98,11 @@ class UserServiceImplTest {
         Mockito.when(userRepository.deleteById(ArgumentMatchers.any(UUID.class)))
                 .thenReturn(Uni.createFrom().item(true));
         assertTrue(userService.deleteUser(UUID.randomUUID()).subscribe().asCompletionStage().get());
+    }
+
+    private void setTimeStampMapperInstance(UserMapper userMapper) throws Exception {
+        Field f = userMapper.getClass().getDeclaredField("timeStampMapper");
+        f.setAccessible(true);
+        f.set(userMapper, Mappers.getMapper(TimeStampMapper.class));
     }
 }
