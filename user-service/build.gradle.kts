@@ -23,8 +23,6 @@ dependencies {
     implementation("org.mapstruct:mapstruct:" + properties["mapstructVersion"])
     implementation("org.projectlombok:lombok-mapstruct-binding:" + properties["lombokMapstructBindingVersion"])
 
-
-
     compileOnly("org.projectlombok:lombok:" + properties["lombokVersion"])
     annotationProcessor("org.projectlombok:lombok:" + properties["lombokVersion"])
     annotationProcessor("org.mapstruct:mapstruct-processor:" + properties["mapstructVersion"])

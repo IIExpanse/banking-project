@@ -11,6 +11,7 @@ public class TimeStampMapper {
     public long convertToMillis(Timestamp timestamp) {
         return timestamp.getTime();
     }
+
     public Timestamp convertToTimestamp(long millis) {
         return new Timestamp(millis);
     }
