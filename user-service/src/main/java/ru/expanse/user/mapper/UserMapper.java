@@ -7,7 +7,7 @@ import ru.expanse.user.entity.User;
 import ru.expanse.user.proto.UserDto;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.CDI,
-        uses = TimeStampMapper.class,
+        uses = {TimeStampMapper.class, UuidMapper.class},
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public interface UserMapper {
