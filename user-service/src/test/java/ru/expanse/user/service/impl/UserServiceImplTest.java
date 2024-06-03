@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import ru.expanse.user.entity.User;
 import ru.expanse.user.mapper.TimeStampMapper;
 import ru.expanse.user.mapper.UserMapper;
+import ru.expanse.user.mapper.UuidMapper;
 import ru.expanse.user.proto.UserDto;
 import ru.expanse.user.repository.UserRepository;
 import ru.expanse.user.util.ObjectFactory;
@@ -31,7 +32,7 @@ class UserServiceImplTest {
         userRepository = Mockito.mock(UserRepository.class);
         userMapper = Mappers.getMapper(UserMapper.class);
         userService = new UserServiceImpl(userRepository, userMapper);
-        setTimeStampMapperInstance(userMapper);
+        setMappers();
     }
 
     @Test
@@ -100,9 +101,14 @@ class UserServiceImplTest {
         assertTrue(userService.deleteUser(UUID.randomUUID()).subscribe().asCompletionStage().get());
     }
 
-    private void setTimeStampMapperInstance(UserMapper userMapper) throws Exception {
-        Field f = userMapper.getClass().getDeclaredField("timeStampMapper");
+    private void setMappers() throws Exception {
+        setMapperForField("timeStampMapper", TimeStampMapper.class);
+        setMapperForField("uuidMapper", UuidMapper.class);
+    }
+
+    private void setMapperForField(String fieldName, Class<?> mapperClass) throws Exception {
+        Field f = userMapper.getClass().getDeclaredField(fieldName);
         f.setAccessible(true);
-        f.set(userMapper, Mappers.getMapper(TimeStampMapper.class));
+        f.set(userMapper, Mappers.getMapper(mapperClass));
     }
 }
