@@ -15,6 +15,8 @@ import ru.expanse.user.repository.UserRepository;
 import ru.expanse.user.service.UserService;
 import ru.expanse.user.util.ObjectFactory;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
@@ -38,7 +40,12 @@ class UserControllerTest {
     }
 
     @Test
-    void addUser() {
+    void addUser() throws Throwable {
+        List<UserDto> list = VertxContextSupport.subscribeAndAwait(
+                () -> client.addUser(mapper.mapToDto(ObjectFactory.getDefaultUser()))
+        ).getUsersList();
+
+        assertEquals(1, list.size());
     }
 
     @Test
