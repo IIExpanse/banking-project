@@ -34,6 +34,6 @@ message UserFilterRequest {
 }
 
 message UserResponse {
-  repeated UserDto users = 1;
-  bool isFound = 2;
+  bool isFound = 1;
+  repeated UserDto users = 2;
 }
