@@ -57,7 +57,7 @@ public class UserController implements GrpcUserController {
 
     private UserResponse packDto(UserDto dto) {
         return UserResponse.newBuilder()
-                .addAllUsers(List.of(dto))
+                .addUsers(dto)
                 .build();
     }
 
