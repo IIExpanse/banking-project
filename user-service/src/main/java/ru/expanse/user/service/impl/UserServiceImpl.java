@@ -1,5 +1,7 @@
 package ru.expanse.user.service.impl;
 
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import io.quarkus.hibernate.reactive.panache.common.WithSession;
 import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.smallrye.mutiny.Uni;
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @WithSession
     public Uni<UserDto> getUserById(UUID id) {
         return userRepository.findById(id)
-                .onItem().ifNull().failWith(new RuntimeException())
+                .onItem().ifNull().failWith(new StatusRuntimeException(Status.NOT_FOUND))
                 .map(userMapper::mapToDto);
     }
 
