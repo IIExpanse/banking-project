@@ -12,3 +12,4 @@ plugins {
 
 rootProject.name = "omnitech-bank"
 include("user-service")
+include("account-service")
