@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.7.xsd">
+
+    <preConditions onFail="HALT">
+        <not>
+            <or>
+                <tableExists tableName="account"/>
+                <tableExists tableName="product"/>
+            </or>
+        </not>
+    </preConditions>
+
+    <changeSet id="1.0.0" author="Alexander Bulatov">
+        <createTable tableName="account">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_account"/>
+            </column>
+            <column name="date_created" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="product">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_product"/>
+            </column>
+            <column name="account_id" type="UUID">
+                <constraints foreignKeyName="fk_account" references="account(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
