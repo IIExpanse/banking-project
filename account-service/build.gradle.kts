@@ -3,7 +3,7 @@ plugins {
     id("io.quarkus") version "3.11.0.CR1"
 }
 
-group = "ru.expanse.account"
+group = "ru.expanse"
 version = "1.0.0"
 
 repositories {
