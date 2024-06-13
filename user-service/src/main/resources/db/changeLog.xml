@@ -19,6 +19,9 @@
             <column name="account_id" type="UUID">
                 <constraints unique="true"/>
             </column>
+            <column name="is_blocked" type="BOOLEAN" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
             <column name="name" type="VARCHAR">
                 <constraints nullable="false"/>
             </column>
