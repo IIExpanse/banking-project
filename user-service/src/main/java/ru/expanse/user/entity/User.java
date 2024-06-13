@@ -35,9 +35,11 @@ public class User {
     private UUID id;
     @Column(name = "account_id")
     private UUID accountId;
-    @Column(name = "name", nullable = false)
+    @Column(name = "is_blocked", nullable = false)
+    private Boolean isBlocked;
+    @Column(nullable = false)
     private String name;
-    @Column(name = "email", nullable = false)
+    @Column(nullable = false)
     private String email;
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
