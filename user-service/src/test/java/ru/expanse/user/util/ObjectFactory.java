@@ -9,6 +9,7 @@ import java.time.temporal.ChronoUnit;
 public class ObjectFactory {
     public static User getDefaultUser() {
         return User.builder()
+                .isBlocked(false)
                 .name("John Doe")
                 .email("john.doe@example.com")
                 .phoneNumber("+79001234567")

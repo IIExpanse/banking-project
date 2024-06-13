@@ -49,6 +49,28 @@ class UserServiceImplTest {
     }
 
     @Test
+    void isValidUser() throws Throwable {
+        User returnedUser = ObjectFactory.getDefaultUser();
+        returnedUser.setId(UUID.randomUUID());
+
+        Mockito.when(userRepository.findById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(Uni.createFrom().item(returnedUser));
+
+        boolean answer = isValidUser(returnedUser.getId());
+        assertTrue(answer);
+
+        returnedUser.setIsBlocked(true);
+        answer = isValidUser(returnedUser.getId());
+        assertFalse(answer);
+
+        Mockito.when(userRepository.findById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(Uni.createFrom().nullItem());
+
+        answer = isValidUser(returnedUser.getId());
+        assertFalse(answer);
+    }
+
+    @Test
     void getUserById() throws Exception {
         User returnedUser = ObjectFactory.getDefaultUser();
         returnedUser.setId(UUID.randomUUID());
@@ -110,5 +132,9 @@ class UserServiceImplTest {
         Field f = userMapper.getClass().getDeclaredField(fieldName);
         f.setAccessible(true);
         f.set(userMapper, Mappers.getMapper(mapperClass));
+    }
+
+    private boolean isValidUser(UUID id) throws Throwable {
+        return userService.isValidUser(id).subscribeAsCompletionStage().get();
     }
 }

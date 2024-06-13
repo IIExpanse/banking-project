@@ -22,6 +22,7 @@ import ru.expanse.user.util.ObjectFactory;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,6 +53,14 @@ class UserControllerTest {
         ).getUsersList();
 
         assertEquals(1, list.size());
+    }
+
+    @Test
+    void isValidUser() throws Throwable {
+        assertFalse(isValidUser(UUID.randomUUID().toString()));
+
+        String id = addDefaultUser().getId();
+        assertTrue(isValidUser(id));
     }
 
     @Test
@@ -137,6 +146,14 @@ class UserControllerTest {
                 () -> client.deleteUser(UserRequest.newBuilder()
                         .setId(id)
                         .build())
-        ).getIsFound();
+        ).getIsSuccessful();
+    }
+
+    private boolean isValidUser(String id) throws Throwable {
+        return VertxContextSupport.subscribeAndAwait(
+                () -> client.isValidUser(UserRequest.newBuilder()
+                        .setId(id)
+                        .build())
+        ).getIsSuccessful();
     }
 }
