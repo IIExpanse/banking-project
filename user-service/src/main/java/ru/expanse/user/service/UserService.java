@@ -12,6 +12,8 @@ public interface UserService {
 
     Uni<UserDto> getUserById(UUID id);
 
+    Uni<Boolean> isValidUser(UUID id);
+
     Uni<List<UserDto>> getFilteredUsers(String name,
                                         String email,
                                         Timestamp startBirthDate,

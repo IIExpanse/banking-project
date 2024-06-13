@@ -26,6 +26,12 @@ public class UserController implements GrpcUserController {
     }
 
     @Override
+    public Uni<UserResponse> isValidUser(UserRequest request) {
+        return userService.isValidUser(UUID.fromString(request.getId()))
+                .map(this::packBoolean);
+    }
+
+    @Override
     public Uni<UserResponse> getUserById(UserRequest request) {
         return userService.getUserById(UUID.fromString(request.getId()))
                 .map(this::packDto);
@@ -50,9 +56,7 @@ public class UserController implements GrpcUserController {
     @Override
     public Uni<UserResponse> deleteUser(UserRequest request) {
         return userService.deleteUser(UUID.fromString(request.getId()))
-                .map(isDeleted -> UserResponse.newBuilder()
-                        .setIsFound(isDeleted)
-                        .build());
+                .map(this::packBoolean);
     }
 
     private UserResponse packDto(UserDto dto) {
@@ -64,6 +68,12 @@ public class UserController implements GrpcUserController {
     private UserResponse packDto(List<UserDto> list) {
         return UserResponse.newBuilder()
                 .addAllUsers(list)
+                .build();
+    }
+
+    private UserResponse packBoolean(boolean bool) {
+        return UserResponse.newBuilder()
+                .setIsSuccessful(bool)
                 .build();
     }
 }

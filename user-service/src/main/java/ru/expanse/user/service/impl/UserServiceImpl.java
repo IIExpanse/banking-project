@@ -40,6 +40,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @WithSession
+    public Uni<Boolean> isValidUser(UUID id) {
+        return userRepository.findById(id)
+                .onItem().transform(user -> user != null && !user.getIsBlocked());
+    }
+
+    @Override
+    @WithSession
     public Uni<List<UserDto>> getFilteredUsers(String name, String email, Timestamp startBirthDate, Timestamp endBirthDate) {
         return userRepository.getFilteredUsers(name, email, startBirthDate, endBirthDate)
                 .map(list -> list.stream().map(userMapper::mapToDto).collect(Collectors.toList()));
