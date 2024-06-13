@@ -7,6 +7,7 @@ option java_package = "ru.expanse.user.proto";
 
 service GrpcUserController {
   rpc addUser (UserDto) returns (UserResponse);
+  rpc isValidUser (UserRequest) returns (UserResponse);
   rpc getUserById (UserRequest) returns (UserResponse);
   rpc getFilteredUsers (UserFilterRequest) returns (UserResponse);
   rpc updateUser (UserDto) returns (UserResponse);
@@ -16,10 +17,11 @@ service GrpcUserController {
 message UserDto {
   string id = 1;
   string accountId = 2;
-  string name = 3;
-  string email = 4;
-  string phoneNumber = 5;
-  int64 birthDate = 6;
+  bool isBlocked = 3;
+  string name = 4;
+  string email = 5;
+  string phoneNumber = 6;
+  int64 birthDate = 7;
 }
 
 message UserRequest {
@@ -34,6 +36,6 @@ message UserFilterRequest {
 }
 
 message UserResponse {
-  bool isFound = 1;
+  bool isSuccessful = 1;
   repeated UserDto users = 2;
 }
