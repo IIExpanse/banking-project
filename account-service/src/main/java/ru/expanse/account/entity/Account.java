@@ -21,6 +21,8 @@ public class Account {
     @Column(name = "linked_products")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
     private List<Product> linkedProducts;
+    @Column(name = "is_blocked", nullable = false)
+    private Boolean isBlocked;
     @Column(name = "date_created", nullable = false)
     private Timestamp dateCreated;
 }
